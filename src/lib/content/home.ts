@@ -14,6 +14,12 @@ import type { SpecSection } from './site';
 
 /** Home page copy and samples. Every sample is taken from the spec or the reference README. */
 
+export const meta = {
+	title: 'NOVA: a typed data format for people, LLMs and agents',
+	description:
+		'NOVA (novafile) is a typed data serialization format with human text for people, compact tables for LLMs, canonical binary for services, and conditional patches for agents. A JSON, YAML and TOML alternative with schemas.'
+};
+
 export interface Representation {
 	id: string;
 	label: string;

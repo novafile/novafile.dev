@@ -10,7 +10,7 @@
 	import FormatGrid from '#lib/components/organisms/FormatGrid.svelte';
 	import RepresentationSwitcher from '#lib/components/organisms/RepresentationSwitcher.svelte';
 	import ToolsGrid from '#lib/components/organisms/ToolsGrid.svelte';
-	import { ecosystem, formats, tools } from '#lib/content/home.ts';
+	import { ecosystem, formats, meta, tools } from '#lib/content/home.ts';
 	import { site, specUrl } from '#lib/content/site.ts';
 	import Seo from '#lib/seo/Seo.svelte';
 
@@ -18,8 +18,8 @@
 </script>
 
 <Seo
-	title="NOVA: a typed data format for people, LLMs and agents"
-	description="NOVA (novafile) is a typed data serialization format with human text for people, compact tables for LLMs, canonical binary for services, and conditional patches for agents. A JSON, YAML and TOML alternative with schemas."
+	title={meta.title}
+	description={meta.description}
 	path="/"
 	jsonLd={{
 		'@context': 'https://schema.org',
