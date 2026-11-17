@@ -68,9 +68,10 @@ CI fails when they are out of date. Components use only `var(--nv-*)` values.
 
 ## Deployment
 
-The site deploys to GitHub Pages from `main` through `.github/workflows/ci.yml`. Deployment is
-off until the repository variable `DEPLOY_PAGES` is set to `true` and Pages uses
-"GitHub Actions" as its source; GitHub Pages on a private repository needs a paid plan.
+Every push to `main` that passes CI deploys to GitHub Pages at https://novafile.dev, through the
+`deploy` job in `.github/workflows/ci.yml`. The custom domain is set in the repository's Pages
+settings; with Actions as the source, Pages ignores a `CNAME` file. DNS for `novafile.dev` points
+the apex at GitHub Pages.
 
 ## License
 
