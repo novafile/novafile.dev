@@ -54,6 +54,7 @@ const specAnchors = {
 	'9.4': '94-evaluation',
 	'9.5': '95-totality-and-limits',
 	'9.6': '96-overlays',
+	'10': '10-token-aware-representation-selection',
 	'11.1': '111-json-and-json-lines',
 	'11.2': '112-other-formats',
 	C: 'appendix-c--open-questions-and-future-work'
@@ -70,6 +71,7 @@ export function proposalUrl(file: string): string {
 export const comparisons = [
 	{ name: 'JSON', href: '/vs/json/' },
 	{ name: 'JSON Lines', href: '/vs/jsonl/' },
+	{ name: 'TOON', href: '/vs/toon/' },
 	{ name: 'YAML', href: '/vs/yaml/' },
 	{ name: 'typed YAML', href: '/vs/typed-yaml/' },
 	{ name: 'TOML', href: '/vs/toml/' },

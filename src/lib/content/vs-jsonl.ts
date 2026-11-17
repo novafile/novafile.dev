@@ -107,6 +107,6 @@ export const comparison: Comparison = {
 	],
 	related: [
 		{ label: 'NOVA vs JSON', href: '/vs/json/' },
-		{ label: 'NOVA on the home page', href: '/' }
+		{ label: 'NOVA and TOON', href: '/vs/toon/' }
 	]
 };

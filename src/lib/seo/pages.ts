@@ -2,6 +2,7 @@ import { meta as home } from '#lib/content/home.ts';
 import { meta as vsYaml } from '#lib/content/vs-yaml.ts';
 import { comparison as vsJson } from '#lib/content/vs-json.ts';
 import { comparison as vsJsonl } from '#lib/content/vs-jsonl.ts';
+import { comparison as vsToon } from '#lib/content/vs-toon.ts';
 import { comparison as vsTypedYaml } from '#lib/content/vs-typed-yaml.ts';
 import { comparison as vsToml } from '#lib/content/vs-toml.ts';
 import { comparison as vsHelm } from '#lib/content/vs-helm.ts';
@@ -15,6 +16,7 @@ const meta: Record<string, { title: string; description: string }> = {
 	'/vs/yaml/': vsYaml,
 	[vsJson.path]: vsJson.meta,
 	[vsJsonl.path]: vsJsonl.meta,
+	[vsToon.path]: vsToon.meta,
 	[vsTypedYaml.path]: vsTypedYaml.meta,
 	[vsToml.path]: vsToml.meta,
 	[vsHelm.path]: vsHelm.meta,

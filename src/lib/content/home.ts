@@ -109,6 +109,12 @@ export const formats: FormatEntry[] = [
 		href: '/vs/jsonl/'
 	},
 	{
+		name: 'TOON',
+		summary:
+			'The same tables with a row count, in a typed format. Read a projection, answer with a patch.',
+		href: '/vs/toon/'
+	},
+	{
 		name: 'YAML',
 		summary: '`no` stays a string. Indentation is exactly two spaces, never a guess.',
 		href: '/vs/yaml/'

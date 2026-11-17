@@ -1,0 +1,9 @@
+$ nvf stats infrastructure.nova
+representation         bytes   ~tokens
+nova (human)             306       114
+nova (compact)           305       114
+json (pretty)            454       190
+json (compact)           301       166
+yaml                     325       121
+toml                     312       142
+(token counts are a tokenizer-independent heuristic; see spec §10)
