@@ -43,6 +43,50 @@ Without `href` the card is shown as not written yet.
 		text-decoration: none;
 	}
 
+	/* The grid's light (see FormatGrid): a ring in the border and a faint wash behind the text. */
+	a.card {
+		--_light: radial-gradient(
+			280px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+			var(--nv-color-accent),
+			transparent
+		);
+		position: relative;
+		isolation: isolate;
+	}
+
+	a.card::before,
+	a.card::after {
+		content: '';
+		position: absolute;
+		inset: -1px;
+		border-radius: inherit;
+		background: var(--_light);
+		opacity: 0;
+		transition: opacity 0.3s ease-out;
+		pointer-events: none;
+	}
+
+	/* Border ring: the border box minus the content box leaves the 1px padding. */
+	a.card::before {
+		padding: 1px;
+		mask:
+			linear-gradient(#000 0 0) content-box exclude,
+			linear-gradient(#000 0 0);
+		opacity: var(--spot-on, 0);
+	}
+
+	a.card::after {
+		z-index: -1;
+		opacity: calc(var(--spot-on, 0) * 0.1);
+	}
+
+	/* Keyboard focus lights the focused card from its center. */
+	a.card:focus-visible {
+		--spot-x: 50%;
+		--spot-y: 50%;
+		--spot-on: 1;
+	}
+
 	a.card:hover {
 		border-color: var(--nv-color-accent);
 		text-decoration: none;
