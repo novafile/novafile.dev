@@ -1,4 +1,4 @@
-@schema infrastructure@1.0.0
+@schema infrastructure@1.0.0        # optional: the schema this follows
 
 environment: production
 deployed_at: 2026-11-17T16:00:00Z   # a string, until a schema resolves it
