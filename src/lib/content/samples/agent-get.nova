@@ -1,0 +1,1 @@
+@get services[id=api].{replicas,port}

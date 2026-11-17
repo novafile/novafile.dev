@@ -1,0 +1,4 @@
+@revision sha256:91cf16db2f4a403ed7a586e82fc2618093f7c1d87fc0183e54ea1c9b936bd65b
+@scope services[id=api]
+replicas: 5
+port: 3000

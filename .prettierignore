@@ -7,3 +7,4 @@ src/lib/tokens/tokens.generated.ts
 src/lib/highlight/grammars/
 .yarn/
 yarn.lock
+src/lib/content/samples/

@@ -1,0 +1,13 @@
+@template
+@param env: string
+@param services: list<string>
+@param metrics: bool = false
+@let defaults = {enabled: true, replicas: 2}
+
+services:
+  @for name in $services:
+    - ...$defaults
+      id: $name
+      image: "ghcr.io/example/${name}:v2"
+  @if $metrics and $env == production:
+    - id: metrics

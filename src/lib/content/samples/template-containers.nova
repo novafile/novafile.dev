@@ -1,0 +1,5 @@
+@template
+@param containers: list<Container>
+
+spec:
+  containers: $containers

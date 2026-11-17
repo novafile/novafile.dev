@@ -1,0 +1,14 @@
+@schema infrastructure@1.0.0
+@root Infrastructure
+
+type Port = u16 @range(1..65535)
+
+record Service:
+  id: string @key @id(1)
+  port: Port @id(3)
+  replicas: u16 @range(0..100) @id(4)
+
+enum Status:
+  active
+  draining
+  failed(string)

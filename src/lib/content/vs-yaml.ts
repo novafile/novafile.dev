@@ -1,3 +1,6 @@
+import norwayYaml from './samples/norway.yaml?raw';
+import norwayNova from './samples/norway.nova?raw';
+import migrateSh from './samples/migrate.sh?raw';
 import type { CodeLang } from '#lib/highlight/index.ts';
 import type { SpecSection } from './site';
 
@@ -12,12 +15,7 @@ export const yamlSide = {
 	filename: 'config.yaml',
 	meta: 'what a YAML 1.1 reader sees',
 	lang: 'yaml' as CodeLang,
-	code: `country: no
-mode: 0777
-beta: on
-services:
-   - id: api
-`,
+	code: norwayYaml,
 	notes: ['false', '511', 'true', '', '3 spaces, still valid']
 };
 
@@ -25,12 +23,7 @@ export const novaSide = {
 	filename: 'config.nova',
 	meta: 'what NOVA reads',
 	lang: 'nova' as CodeLang,
-	code: `country: no
-mode: 0777
-beta: true
-services:
-  - id: api
-`,
+	code: norwayNova,
 	notes: ['"no"', '"0777"', 'true', '', 'exactly 2 spaces']
 };
 
@@ -75,9 +68,7 @@ export const changes: { topic: string; yaml: string; nova: string; section: Spec
 
 export const migrate = {
 	lang: 'shellscript' as CodeLang,
-	code: `nvf convert config.yaml --to nova
-nvf lint config.nova --fix
-`
+	code: migrateSh
 };
 
 export const stayWithYaml = [

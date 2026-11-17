@@ -1,0 +1,5 @@
+country: no
+mode: 0777
+beta: on
+services:
+   - id: api

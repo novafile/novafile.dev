@@ -40,7 +40,8 @@ src/lib/components/atoms/      logo, icon, button, tag, status pill, section ban
 src/lib/components/molecules/  code block, copy command, theme toggle, cards, section header
 src/lib/components/organisms/  header, footer, representation switcher, comparison table, …
 src/lib/components/templates/  site shell and the comparison page layout
-src/lib/content/               page copy and code samples
+src/lib/content/               page copy
+src/lib/content/samples/       code samples shown on the pages, loaded with ?raw
 src/lib/highlight/             Shiki setup, token-colored theme, NOVA grammars
 src/routes/                    pages: / and /vs/yaml/
 ```

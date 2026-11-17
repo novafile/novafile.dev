@@ -1,0 +1,13 @@
+@schema infrastructure@1.0.0
+
+environment: production
+deployed_at: 2026-11-17T16:00:00Z   # a string, until a schema resolves it
+ratio: 22/7                         # an exact rational
+
+services:
+  - id: auth
+    port: 8080
+    replicas: 3
+  - id: api
+    port: 3000
+    replicas: 5

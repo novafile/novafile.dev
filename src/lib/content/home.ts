@@ -1,3 +1,14 @@
+import humanNova from './samples/human.nova?raw';
+import compactNova from './samples/compact.nova?raw';
+import schemaNovs from './samples/schema.novs?raw';
+import queryNova from './samples/query.nova?raw';
+import patchNovaPatch from './samples/patch.nova-patch?raw';
+import templateNova from './samples/template.nova?raw';
+import agentGetNova from './samples/agent-get.nova?raw';
+import agentRevisionNova from './samples/agent-revision.nova?raw';
+import agentPatchNovaPatch from './samples/agent-patch.nova-patch?raw';
+import helmYaml from './samples/helm.yaml?raw';
+import templateContainersNova from './samples/template-containers.nova?raw';
 import type { CodeLang } from '#lib/highlight/index.ts';
 import type { SpecSection } from './site';
 
@@ -23,20 +34,7 @@ export const representations: Representation[] = [
 		section: '4',
 		sectionLabel: 'Text syntax, §4',
 		lang: 'nova',
-		code: `@schema infrastructure@1.0.0
-
-environment: production
-deployed_at: 2026-11-17T16:00:00Z   # a string, until a schema resolves it
-ratio: 22/7                         # an exact rational
-
-services:
-  - id: auth
-    port: 8080
-    replicas: 3
-  - id: api
-    port: 3000
-    replicas: 5
-`
+		code: humanNova
 	},
 	{
 		id: 'compact',
@@ -45,10 +43,7 @@ services:
 		section: '4.9',
 		sectionLabel: 'Tables, §4.9',
 		lang: 'nova',
-		code: `services[2]{id,port,replicas}:
-  auth,8080,3
-  api,3000,5
-`
+		code: compactNova
 	},
 	{
 		id: 'schema',
@@ -57,21 +52,7 @@ services:
 		section: '6',
 		sectionLabel: 'Schemas, §6',
 		lang: 'nova-schema',
-		code: `@schema infrastructure@1.0.0
-@root Infrastructure
-
-type Port = u16 @range(1..65535)
-
-record Service:
-  id: string @key @id(1)
-  port: Port @id(3)
-  replicas: u16 @range(0..100) @id(4)
-
-enum Status:
-  active
-  draining
-  failed(string)
-`
+		code: schemaNovs
 	},
 	{
 		id: 'query',
@@ -81,11 +62,7 @@ enum Status:
 		sectionLabel: 'Queries, §7.3',
 		lang: 'nova',
 		command: `nvf get infrastructure.nova 'services[id=api].{replicas,port}'`,
-		code: `@revision sha256:91cf16db2f4a403ed7a586e82fc2618093f7c1d87fc0183e54ea1c9b936bd65b
-@scope services[id=api]
-replicas: 5
-port: 3000
-`
+		code: queryNova
 	},
 	{
 		id: 'patch',
@@ -94,10 +71,7 @@ port: 3000
 		section: '7.4',
 		sectionLabel: 'Patches, §7.4',
 		lang: 'nova-patch',
-		code: `@patch sha256:91cf16db
-@scope services[id=api]
-replicas: 5 -> 8
-`
+		code: patchNovaPatch
 	},
 	{
 		id: 'template',
@@ -106,20 +80,7 @@ replicas: 5 -> 8
 		section: '9',
 		sectionLabel: 'Templates, §9',
 		lang: 'nova',
-		code: `@template
-@param env: string
-@param services: list<string>
-@param metrics: bool = false
-@let defaults = {enabled: true, replicas: 2}
-
-services:
-  @for name in $services:
-    - ...$defaults
-      id: $name
-      image: "ghcr.io/example/\${name}:v2"
-  @if $metrics and $env == production:
-    - id: metrics
-`
+		code: templateNova
 	}
 ];
 
@@ -173,43 +134,27 @@ export const formats: FormatEntry[] = [
 ];
 
 export const agentSteps: { title: string; lang: CodeLang; code: string }[] = [
-	{ title: 'The agent asks', lang: 'nova', code: '@get services[id=api].{replicas,port}\n' },
+	{ title: 'The agent asks', lang: 'nova', code: agentGetNova },
 	{
 		title: 'The tool answers with a revision',
 		lang: 'nova',
-		code: `@revision sha256:91cf16db…
-@scope services[id=api]
-replicas: 5
-port: 3000
-`
+		code: agentRevisionNova
 	},
 	{
 		title: 'The agent writes one line',
 		lang: 'nova-patch',
-		code: `@patch sha256:91cf16db
-@scope services[id=api]
-replicas: 5 -> 8
-`
+		code: agentPatchNovaPatch
 	}
 ];
 
 export const helmSample = {
 	lang: 'yaml' as CodeLang,
-	code: `spec:
-  containers:
-    {{- toYaml .Values.containers | nindent 4 }}
-# get the 4 wrong and the YAML still parses
-`
+	code: helmYaml
 };
 
 export const templateSample = {
 	lang: 'nova' as CodeLang,
-	code: `@template
-@param containers: list<Container>
-
-spec:
-  containers: $containers
-`
+	code: templateContainersNova
 };
 
 export const tools = [

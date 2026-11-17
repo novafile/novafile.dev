@@ -1,0 +1,4 @@
+spec:
+  containers:
+    {{- toYaml .Values.containers | nindent 4 }}
+# get the 4 wrong and the YAML still parses
