@@ -49,6 +49,7 @@ src/lib/content/               page copy
 src/lib/content/samples/       code samples shown on the pages, loaded with ?raw
 src/lib/highlight/             Shiki setup, token-colored theme, NOVA grammars
 src/routes/                    pages: / and /vs/yaml/
+brand/                         star logo sources and the GitHub organization avatar
 ```
 
 Imports inside the app use the `#lib/*` subpath import (`package.json` `imports`), which
