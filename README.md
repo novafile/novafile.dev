@@ -66,3 +66,15 @@ CI fails when they are out of date. Components use only `var(--nv-*)` values.
 The site deploys to GitHub Pages from `main` through `.github/workflows/ci.yml`. Deployment is
 off until the repository variable `DEPLOY_PAGES` is set to `true` and Pages uses
 "GitHub Actions" as its source; GitHub Pages on a private repository needs a paid plan.
+
+## License
+
+| Part                                                                                      | License                               |
+| ----------------------------------------------------------------------------------------- | ------------------------------------- |
+| Site code: components, scripts, configuration, design tokens                              | [Apache-2.0](LICENSES/Apache-2.0.txt) |
+| Written content: page copy in [`src/lib/content/`](src/lib/content/), docs and blog posts | [CC-BY-4.0](LICENSES/CC-BY-4.0.txt)   |
+| Code samples in [`src/lib/content/samples/`](src/lib/content/samples/)                    | [CC0-1.0](LICENSES/CC0-1.0.txt)       |
+
+[`REUSE.toml`](REUSE.toml) declares the license of every path. Third-party parts keep their own
+licenses, listed in [`NOTICE`](NOTICE). The NOVA name, the star logo and the novafile.dev domain
+are not licensed; all rights reserved.

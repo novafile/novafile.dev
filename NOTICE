@@ -1,0 +1,24 @@
+novafile.dev
+Copyright NOVA contributors
+
+The site code is licensed under the Apache License 2.0, the written content
+under CC BY 4.0, and the code samples under CC0 1.0; REUSE.toml declares which
+applies to each path. The NOVA name, the star logo and the novafile.dev domain
+are not licensed; all rights reserved.
+
+This project includes or bundles third-party material under its own license:
+
+IBM Plex Sans and IBM Plex Mono
+  Copyright 2017-2019 IBM Corp.
+  SIL Open Font License 1.1, https://openfontlicense.org
+  Bundled from the @fontsource/ibm-plex-sans and @fontsource/ibm-plex-mono
+  npm packages; the full license ships in each package's LICENSE file.
+
+NOVA TextMate grammars (src/lib/highlight/grammars/)
+  Copyright NOVA contributors
+  Apache License 2.0
+  Copied from https://github.com/novafile/vscode-novafile
+
+npm dependencies
+  Each package keeps the license stated in its package.json and LICENSE file;
+  yarn.lock lists the exact versions.

@@ -1,0 +1,24 @@
+version = 1
+SPDX-PackageName = "novafile.dev"
+SPDX-PackageDownloadLocation = "https://github.com/novafile/novafile.dev"
+
+# Site code: components, scripts, configuration and design tokens.
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "NOVA contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+# Written content: page copy, docs and blog posts.
+[[annotations]]
+path = "src/lib/content/*.ts"
+precedence = "override"
+SPDX-FileCopyrightText = "NOVA contributors"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Code samples shown on the pages, most copied from the specification's CC0 examples.
+[[annotations]]
+path = "src/lib/content/samples/**"
+precedence = "override"
+SPDX-FileCopyrightText = "NOVA contributors"
+SPDX-License-Identifier = "CC0-1.0"
