@@ -6,7 +6,7 @@
 	"type": "module",
 	"packageManager": "yarn@4.18.1",
 	"engines": {
-		"node": ">=22"
+		"node": ">=26"
 	},
 	"scripts": {
 		"tokens": "node scripts/build-tokens.mjs",

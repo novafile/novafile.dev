@@ -6,7 +6,7 @@ lives in [novafile/spec](https://github.com/novafile/spec); the reference implem
 
 ## Stack
 
-- Node 22, [Corepack](https://nodejs.org/api/corepack.html) and Yarn 4 (`nodeLinker: node-modules`)
+- Node 26, [Corepack](https://nodejs.org/api/corepack.html) and Yarn 4 (`nodeLinker: node-modules`)
 - [SvelteKit](https://svelte.dev/docs/kit) with `@sveltejs/adapter-static`: every page is prerendered
 - [Vite](https://vite.dev), configured in `vite.config.ts` (SvelteKit options live there too)
 - [Storybook](https://storybook.js.org) for the component library
