@@ -1,5 +1,6 @@
 import servicesJsonl from './samples/vs-jsonl/services.jsonl?raw';
-import servicesNova from './samples/vs-jsonl/services.nova?raw';
+import servicesNovl from './samples/vs-jsonl/services.novl?raw';
+import eventsNovl from './samples/vs-jsonl/events.novl?raw';
 import migrateSh from './samples/vs-jsonl/migrate.sh?raw';
 import compactNova from './samples/vs-jsonl/compact.nova?raw';
 import truncated from './samples/vs-jsonl/truncated.txt?raw';
@@ -9,62 +10,62 @@ export const comparison: Comparison = {
 	path: '/vs/jsonl/',
 	format: 'JSON Lines',
 	meta: {
-		title: 'A JSON Lines alternative that names the columns once',
+		title: 'NOVA vs JSON Lines: typed records, one per line',
 		description:
-			'A NOVA table names its columns once and declares its row count, so truncated output from an LLM or a pipe is an error instead of a shorter list. NOVA reads JSON Lines directly.',
-		lead: 'JSON Lines repeats every key on every line, and a stream that was cut short is still a valid, shorter stream. A NOVA table names the columns once and declares how many rows follow, so a missing row is an error.'
+			'NOVA reads JSON Lines today. NOVA Lines (.novl), a proposed line-oriented stream, keeps one record per line, adds NOVA types, can name the columns once, and ends with a record count so a reader can tell a finished stream from one that stopped.',
+		lead: 'JSON Lines repeats every key on every line, and a reader cannot tell a finished stream from one that stopped early. NOVA reads JSON Lines today. NOVA Lines, a proposed stream format, keeps one record per line, can name the columns once, and ends with a record count.'
 	},
 	variant: 'problem-fix',
 	stacked: true,
 	before: {
 		filename: 'services.jsonl',
-		meta: 'the third line never arrived',
+		meta: 'did the writer finish?',
 		lang: 'jsonl',
 		code: servicesJsonl,
 		notes: ['keys again', 'keys again']
 	},
 	after: {
-		filename: 'services.nova',
-		meta: 'the same rows as a table',
+		filename: 'services.novl',
+		meta: 'proposed, not in the spec yet',
 		lang: 'nova',
-		code: servicesNova,
-		notes: ['3 rows promised', '', 'row 3 missing: error']
+		code: servicesNovl,
+		notes: ['columns once', 'one row per line', 'append as you go', 'writer finished: 2 rows']
 	},
 	afterNote: {
-		text: 'A missing or extra row fails the parse, which catches output that an LLM or a pipe cut short.',
-		section: '4.9',
-		label: 'Tables, spec §4.9'
+		text: 'Proposed: rows are appended one line at a time, and the optional `@end` trailer says the writer finished. A stream without it reads as open, not as complete, so `tail -f` still works.',
+		section: 'C',
+		label: 'Open questions, spec App. C'
 	},
 	changes: [
 		{
+			topic: 'Appending',
+			theirs: 'One value per line, append with `>>`',
+			nova: 'Proposed: one row or value per line in `.novl`; today, documents separated by `---`',
+			section: '4.11'
+		},
+		{
 			topic: 'Field names',
 			theirs: 'Repeated on every line',
-			nova: 'Once, in the table header',
-			section: '4.9'
+			nova: 'Proposed: once, in an `@columns` header',
+			section: 'C'
 		},
 		{
 			topic: 'Truncation',
-			theirs: 'A shorter file is still valid',
-			nova: '`[N]` is the exact row count; a missing row is an error',
-			section: '4.9'
+			theirs: 'A shorter stream is still valid',
+			nova: 'Proposed: `@end <count>` closes the stream; without it the stream is open',
+			section: 'C'
+		},
+		{
+			topic: 'Types',
+			theirs: 'JSON’s six kinds',
+			nova: 'Any NOVA value: timestamps, decimals, sets, variants',
+			section: '2'
 		},
 		{
 			topic: 'Absent fields',
 			theirs: 'Leave the key out',
 			nova: 'Leave the cell empty; write `null` for a present null',
 			section: '4.9'
-		},
-		{
-			topic: 'Types',
-			theirs: 'JSON’s six kinds',
-			nova: 'Any NOVA value in a cell: timestamps, decimals, variants',
-			section: '2'
-		},
-		{
-			topic: 'Appending',
-			theirs: 'One value per line, append with `>>`',
-			nova: 'Documents separated by `---`; a line-oriented stream format is proposed',
-			section: '4.11'
 		},
 		{
 			topic: 'Querying',
@@ -75,29 +76,39 @@ export const comparison: Comparison = {
 	],
 	migrate: {
 		intro:
-			'JSON Lines reads as a list of its lines. The compact profile writes a list of records with scalar fields as a table, with the row count filled in.',
+			'Today NOVA reads JSON Lines as one list. For a finished file, the compact profile writes a list of records with scalar fields as a table, with the row count filled in, so a cut-off copy fails to parse. Writing `.novl` is part of the proposal; `nvf` does not do it yet.',
 		steps: [
 			{ lang: 'shellscript', code: migrateSh },
 			{ filename: 'stdout', lang: 'nova', code: compactNova },
-			{ filename: 'A cut-off table', lang: 'text', code: truncated }
+			{ filename: 'A cut-off table', lang: 'text', code: truncated },
+			{
+				filename: 'Proposed: records that are not uniform, one value per line',
+				lang: 'nova',
+				code: eventsNovl
+			}
 		]
 	},
 	stayTitle: 'When to stay with JSON Lines',
 	stay: [
-		'You append to a log while it is being written. A table needs its row count up front. NOVA Lines, a line-oriented stream with an optional `@end` count, is only a proposal so far.',
-		'Your records are irregular or deeply nested. Tables pay off on uniform records and lose their advantage on irregular data.',
+		'You append to a log while it is being written and need a format that is specified today. NOVA Lines is only a proposal so far.',
+		'Every tool in your pipeline already speaks JSON Lines, and you do not need types beyond JSON’s.',
 		'You need a format that is stable today. NOVA is a 0.1 draft.'
 	],
 	faq: [
 		{
 			question: 'Does NOVA have a streaming format like JSON Lines?',
 			answer:
-				'Not yet. Today a text stream is a sequence of documents separated by `---` lines. NOVA Lines (`.novl`) is proposed: one value or table row per line, with an optional `@end` trailer that carries the record count.'
+				'Not yet. Today a text stream is a sequence of documents separated by `---` lines. NOVA Lines (`.novl`) is proposed: one flow value or table row per line, an optional header with `@columns`, and an optional `@end` trailer with the record count.'
 		},
 		{
-			question: 'Can a cell hold a nested value?',
+			question: 'How would a reader notice a stream that was cut short?',
 			answer:
-				'Yes. A cell is any flow value, such as `[a, b]` or `{x: 1}`. The compact writer only chooses a table when the fields are scalars and the rows are at least half filled.'
+				'In the proposal, a writer that finishes ends with `@end <count>`. A reader that finds it checks the count; one that reaches the end without it reports the stream as open rather than complete. For output that is already finished, a NOVA table with `[N]` rows works today.'
+		},
+		{
+			question: 'Can a record hold nested values?',
+			answer:
+				'Yes. Without `@columns`, each line is one flow value, such as `{id: api, tags: [a, b], limits: {cpu: 2}}`. A table cell is a flow value too, but today the compact writer only chooses a table when every field is a scalar.'
 		},
 		{
 			question: 'Are commas inside values a problem?',

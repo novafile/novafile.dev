@@ -1,0 +1,4 @@
+@columns {id, port, replicas}
+auth, 8080, 3
+api, 3000, 5
+@end 2
