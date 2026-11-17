@@ -1,0 +1,5 @@
+$ nvf convert order.nova --to json --strict
+  × conversion to JSON is lossy:
+  │   .id: integer beyond ±2^53 may lose precision in many JSON readers
+  │   .price: decimal written as a string
+  │   .created: timestamp written as an RFC 3339 string

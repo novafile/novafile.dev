@@ -1,0 +1,4 @@
+@patch sha256:91cf16db
+@scope services[id=api]
+replicas: 5 -> 8
+? enabled: true

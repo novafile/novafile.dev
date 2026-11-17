@@ -1,0 +1,8 @@
+@schema service@1.0.0
+@root Service
+
+record Service:
+  id: string
+  port: u16 @range(1..65535)
+  replicas: u16 @range(0..100) = 2
+  deployed_at?: timestamp

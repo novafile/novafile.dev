@@ -6,7 +6,16 @@ import novaSchema from './grammars/nova-schema.tmLanguage.json';
 import { novaTokensTheme } from './theme';
 
 export type CodeLang =
-	'nova' | 'nova-patch' | 'nova-schema' | 'yaml' | 'json' | 'toml' | 'shellscript' | 'text';
+	| 'nova'
+	| 'nova-patch'
+	| 'nova-schema'
+	| 'yaml'
+	| 'json'
+	| 'jsonl'
+	| 'toml'
+	| 'proto'
+	| 'shellscript'
+	| 'text';
 
 const grammar = (g: unknown, name: string): LanguageRegistration =>
 	({ ...(g as object), name }) as LanguageRegistration;
@@ -22,7 +31,9 @@ function getHighlighter(): Promise<HighlighterCore> {
 			grammar(novaSchema, 'nova-schema'),
 			import('shiki/langs/yaml.mjs'),
 			import('shiki/langs/json.mjs'),
+			import('shiki/langs/jsonl.mjs'),
 			import('shiki/langs/toml.mjs'),
+			import('shiki/langs/proto.mjs'),
 			import('shiki/langs/shellscript.mjs')
 		],
 		engine: createOnigurumaEngine(import('shiki/wasm'))

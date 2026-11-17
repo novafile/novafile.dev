@@ -17,7 +17,7 @@ Questions and answers as disclosure widgets. The page adds FAQPage structured da
 <div class="faq">
 	{#each items as item, i (item.question)}
 		<details open={openFirst && i === 0}>
-			<summary>{item.question}</summary>
+			<summary><RichText text={item.question} /></summary>
 			<p><RichText text={item.answer} /></p>
 		</details>
 	{/each}

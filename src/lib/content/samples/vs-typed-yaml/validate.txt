@@ -1,0 +1,5 @@
+$ nvf validate service.nova --schema service.novs
+  × service.nova is invalid against service@1.0.0#772b44744ddfe225 (3 issues)
+  × port: 70000 is out of range for u16
+  × port: 70000 is outside @range(1..65535)
+  × replicas: expected u16, found string

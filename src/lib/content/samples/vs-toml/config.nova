@@ -1,0 +1,7 @@
+services:
+  - id: auth
+    port: 8080
+    volumes:
+      - path: /data
+  - id: api
+    port: 3000

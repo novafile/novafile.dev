@@ -1,0 +1,10 @@
+spec:
+  replicas: {{ .Values.replicas }}
+  template:
+    spec:
+      containers:
+        {{- toYaml .Values.containers | nindent 8 }}
+        {{- if .Values.metrics }}
+        - name: metrics
+          image: ghcr.io/example/metrics:v1
+        {{- end }}

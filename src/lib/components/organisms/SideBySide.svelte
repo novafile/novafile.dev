@@ -18,12 +18,14 @@ Two code blocks next to each other: the reader's format and NOVA. Stacks on narr
 		after: Side;
 		/** Header colors: an annotated comparison, or "problem" and "fix" headers. */
 		variant?: 'annotated' | 'problem-fix';
+		/** One block above the other, for wide code with notes. */
+		stacked?: boolean;
 	}
 
-	let { before, after, variant = 'annotated' }: Props = $props();
+	let { before, after, variant = 'annotated', stacked = false }: Props = $props();
 </script>
 
-<div class="side-by-side">
+<div class="side-by-side" class:stacked>
 	<CodeBlock
 		{...before}
 		tone={variant === 'problem-fix' ? 'problem' : 'neutral'}
@@ -37,5 +39,9 @@ Two code blocks next to each other: the reader's format and NOVA. Stacks on narr
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
 		gap: var(--nv-space-4);
+	}
+
+	.stacked {
+		grid-template-columns: minmax(0, 1fr);
 	}
 </style>

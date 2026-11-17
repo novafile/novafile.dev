@@ -1,0 +1,6 @@
+@schema service@1.0.0
+
+id: api
+port: 70000
+replicas: two
+deployed_at: 2026-11-17T16:00:00Z

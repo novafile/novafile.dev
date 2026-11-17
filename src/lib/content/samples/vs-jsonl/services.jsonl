@@ -1,0 +1,2 @@
+{"id":"auth","port":8080,"replicas":3}
+{"id":"api","port":3000,"replicas":5}

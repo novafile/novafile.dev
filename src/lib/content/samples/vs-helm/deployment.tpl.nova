@@ -1,0 +1,14 @@
+@template
+@param replicas: u16 @range(1..50) = 2
+@param containers: list<Container>
+@param metrics: bool = false
+
+spec:
+  replicas: $replicas
+  template:
+    spec:
+      containers:
+        ...$containers
+        @if $metrics:
+          - name: metrics
+            image: ghcr.io/example/metrics:v1

@@ -1,0 +1,2 @@
+$ nvf convert services.nova --to json
+  × table declares 3 rows but only 2 were found (rows are indented 2 spaces)

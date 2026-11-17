@@ -1,0 +1,2 @@
+$ nvf convert order.json --to nova
+  × order.json: JSON byte 103: duplicate key "role"

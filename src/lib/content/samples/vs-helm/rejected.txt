@@ -1,0 +1,3 @@
+$ nvf render deployment.tpl.nova --schema k8s.novs --set replicas=80 …
+  × deployment.tpl.nova: parameter "replicas" does not match
+    `u16 @range(1..50)`: .: 80 is outside @range(1..50)

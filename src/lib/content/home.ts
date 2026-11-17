@@ -100,11 +100,13 @@ export const formats: FormatEntry[] = [
 	{
 		name: 'JSON',
 		summary:
-			'Comments, timestamps and exact decimals. Duplicate keys are an error, not a coin toss.'
+			'Comments, timestamps and exact decimals. Duplicate keys are an error, not a coin toss.',
+		href: '/vs/json/'
 	},
 	{
 		name: 'JSON Lines',
-		summary: 'Name the columns once. A declared row count turns truncated output into an error.'
+		summary: 'Name the columns once. A declared row count turns truncated output into an error.',
+		href: '/vs/jsonl/'
 	},
 	{
 		name: 'YAML',
@@ -113,29 +115,35 @@ export const formats: FormatEntry[] = [
 	},
 	{
 		name: 'YAML, but typed',
-		summary: 'Keep the block layout and the comments you like. Add schemas and validation.'
+		summary: 'Keep the block layout and the comments you like. Add schemas and validation.',
+		href: '/vs/typed-yaml/'
 	},
 	{
 		name: 'TOML',
-		summary: 'Explicit types like TOML, nesting like YAML. No arrays-of-tables gymnastics.'
+		summary: 'Explicit types like TOML, nesting like YAML. No arrays-of-tables gymnastics.',
+		href: '/vs/toml/'
 	},
 	{
 		name: 'Helm',
-		summary: 'Templates over values, not text. Typed parameters, no `nindent`, always terminates.'
+		summary: 'Templates over values, not text. Typed parameters, no `nindent`, always terminates.',
+		href: '/vs/helm/'
 	},
 	{
 		name: 'Kustomize',
-		summary: 'Overlays are conditional patches that say what they expect: `replicas: 5 -> 8`.'
+		summary: 'Overlays are conditional patches that say what they expect: `replicas: 5 -> 8`.',
+		href: '/vs/kustomize/'
 	},
 	{
 		name: 'Protocol Buffers',
 		summary:
-			'One schema for text and wire. `@id` is the field number, and the `.proto` is generated.'
+			'One schema for text and wire. `@id` is the field number, and the `.proto` is generated.',
+		href: '/vs/protobuf/'
 	},
 	{
 		name: "Cap'n Proto, CBOR, MessagePack",
 		summary:
-			'A self-describing binary with one canonical encoding, so every value has a SHA-256 revision.'
+			'A self-describing binary with one canonical encoding, so every value has a SHA-256 revision.',
+		href: '/vs/binary/'
 	}
 ];
 

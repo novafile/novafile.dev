@@ -1,0 +1,10 @@
+[[services]]
+id = "auth"
+port = 8080
+
+[[services.volumes]]
+path = "/data"
+
+[[services]]
+id = "api"
+port = 3000

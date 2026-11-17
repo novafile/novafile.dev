@@ -1,0 +1,11 @@
+@schema infrastructure@1.0.0
+@root Service
+
+record Service:
+  id: string @key @id(1)
+  port: u16 @range(1..65535) @id(3)
+  replicas: u16 @range(0..100) @id(4)
+  status: Status @id(5) = !active
+  deployed_at?: timestamp @id(6)
+
+enum Status = active | draining | failed(string)

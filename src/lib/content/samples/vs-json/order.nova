@@ -1,0 +1,5 @@
+# comments are allowed
+id: 9007199254740993
+price: @decimal("19.99")
+created: @timestamp("2026-11-17T16:00:00Z")
+role: admin
