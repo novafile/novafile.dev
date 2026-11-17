@@ -1,0 +1,9 @@
+node_modules/
+.svelte-kit/
+build/
+storybook-static/
+*.log
+.DS_Store
+.yarn/*
+!.yarn/releases
+.pnp.*

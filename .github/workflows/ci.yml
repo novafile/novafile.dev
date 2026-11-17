@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: corepack enable
+      - run: yarn install --immutable
+      - name: Design tokens are up to date
+        run: yarn tokens && git diff --exit-code -- src/lib/styles/tokens.css src/lib/tokens/tokens.generated.ts
+      - run: yarn lint
+      - run: yarn check
+      - run: yarn build
+      - run: yarn build-storybook
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main' && vars.DEPLOY_PAGES == 'true'
+        with:
+          path: build
+
+  deploy:
+    # Turn on by setting the repository variable DEPLOY_PAGES to "true" once
+    # GitHub Pages is enabled with "GitHub Actions" as the source.
+    if: github.ref == 'refs/heads/main' && vars.DEPLOY_PAGES == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

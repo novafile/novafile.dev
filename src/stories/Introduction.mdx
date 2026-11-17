@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# novafile.dev components
+
+The site is built from design tokens and components organized by atomic design.
+Every story renders the real component with the site's tokens; use the **Theme**
+toolbar button to switch between light and dark.
+
+## Layers
+
+| Layer       | Folder                         | What belongs there                                                                                       |
+| ----------- | ------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| Foundations | `tokens/tokens.json`           | Colors, syntax colors, type, spacing, radii and sizes. `yarn tokens` writes `src/lib/styles/tokens.css`. |
+| Atoms       | `src/lib/components/atoms`     | Smallest parts: logo, icon, button, tag, status pill, section band.                                      |
+| Molecules   | `src/lib/components/molecules` | Atoms combined for one job: code block, copy command, format card, theme toggle.                         |
+| Organisms   | `src/lib/components/organisms` | Page sections: header, footer, representation switcher, comparison table.                                |
+| Templates   | `src/lib/components/templates` | Page layouts: the site shell and the comparison page.                                                    |
+| Pages       | `src/routes`                   | Content from `src/lib/content`, highlighted at build time.                                               |
+
+## Rules
+
+- Components use `var(--nv-*)` tokens only. A new color or size starts as a token.
+- Copy lives in `src/lib/content`, not in components, so pages stay easy to review.
+- Code samples are highlighted at build time with the NOVA TextMate grammars, using
+  syntax tokens as colors, so one highlighted block works in both themes.
+- Every claim about NOVA links to the section of the specification it comes from.

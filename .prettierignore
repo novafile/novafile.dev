@@ -1,0 +1,9 @@
+build/
+.svelte-kit/
+storybook-static/
+node_modules/
+src/lib/styles/tokens.css
+src/lib/tokens/tokens.generated.ts
+src/lib/highlight/grammars/
+.yarn/
+yarn.lock
