@@ -1,12 +1,12 @@
 import { site } from '#lib/content/site.ts';
-import { pages } from '#lib/seo/pages.ts';
+import { routes } from '#lib/seo/pages.ts';
 
 export const prerender = true;
 export const trailingSlash = 'never';
 
 export function GET() {
-	const urls = pages
-		.map(({ path }) => `  <url><loc>${new URL(path, site.url).href}</loc></url>`)
+	const urls = routes
+		.map((path) => `  <url><loc>${new URL(path, site.url).href}</loc></url>`)
 		.join('\n');
 	const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
