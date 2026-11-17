@@ -7,3 +7,5 @@ storybook-static/
 .yarn/*
 !.yarn/releases
 .pnp.*
+/Taskfile.yaml
+.task/

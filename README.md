@@ -31,6 +31,11 @@ yarn storybook      # http://localhost:6006
 | `yarn storybook` / `yarn build-storybook` | Component library                                                        |
 | `yarn lint` / `yarn format`               | Prettier                                                                 |
 
+The same commands run through [Task](https://taskfile.dev): `task --list` shows them, and
+`task ci` runs everything CI does, including [actionlint](https://github.com/rhysd/actionlint),
+[zizmor](https://docs.zizmor.sh) and [REUSE](https://reuse.software) (`uvx reuse lint`).
+Put local overrides in an untracked `Taskfile.yaml`.
+
 ## Structure
 
 ```

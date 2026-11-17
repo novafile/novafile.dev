@@ -1,0 +1,85 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task --list
+
+  install:
+    desc: Install dependencies
+    cmds:
+      - corepack enable
+      - yarn install --immutable
+    sources:
+      - package.json
+      - yarn.lock
+    generates:
+      - node_modules/.yarn-state.yml
+
+  tokens:
+    desc: Generate CSS variables and typed tokens from tokens/tokens.json
+    deps: [install]
+    cmds:
+      - yarn tokens
+
+  dev:
+    desc: Development server on http://localhost:5173
+    deps: [install]
+    cmds:
+      - yarn dev
+
+  storybook:
+    desc: Storybook on http://localhost:6006
+    deps: [install]
+    cmds:
+      - yarn storybook
+
+  build:
+    desc: Static site in build/
+    deps: [install]
+    cmds:
+      - yarn build
+
+  build-storybook:
+    desc: Static Storybook in storybook-static/
+    deps: [install]
+    cmds:
+      - yarn build-storybook
+
+  preview:
+    desc: Serve the built site
+    deps: [build]
+    cmds:
+      - yarn preview
+
+  check:
+    desc: Svelte and TypeScript checks
+    deps: [install]
+    cmds:
+      - yarn check
+
+  format:
+    desc: Format with Prettier
+    deps: [install]
+    cmds:
+      - yarn format
+
+  lint:
+    desc: Prettier, actionlint, zizmor and REUSE
+    deps: [install]
+    cmds:
+      - yarn lint
+      - actionlint
+      - zizmor --offline .github/workflows
+      - uvx reuse lint
+
+  ci:
+    desc: Everything CI runs
+    cmds:
+      - task: lint
+      - task: tokens
+      - git diff --exit-code -- src/lib/styles/tokens.css src/lib/tokens/tokens.generated.ts
+      - task: check
+      - task: build
+      - task: build-storybook
