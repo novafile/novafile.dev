@@ -1,0 +1,2 @@
+{"ts":"2026-11-17T16:00:00Z","level":"error","service":"api","req":{"method":"POST","path":"/orders","status":502},"user":{"id":42,"roles":["admin"]},"error":{"kind":"upstream","msg":"timeout after 30s"}}
+{"ts":"2026-11-17T16:00:01Z","level":"info","service":"auth","req":{"method":"GET","path":"/login","status":200},"user":{"id":7,"roles":[]}}

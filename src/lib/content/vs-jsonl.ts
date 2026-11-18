@@ -1,6 +1,6 @@
-import servicesJsonl from './samples/vs-jsonl/services.jsonl?raw';
-import servicesNovl from './samples/vs-jsonl/services.novl?raw';
+import eventsJsonl from './samples/vs-jsonl/events.jsonl?raw';
 import eventsNovl from './samples/vs-jsonl/events.novl?raw';
+import servicesNovl from './samples/vs-jsonl/services.novl?raw';
 import migrateSh from './samples/vs-jsonl/migrate.sh?raw';
 import compactNova from './samples/vs-jsonl/compact.nova?raw';
 import truncated from './samples/vs-jsonl/truncated.txt?raw';
@@ -12,27 +12,25 @@ export const comparison: Comparison = {
 	meta: {
 		title: 'NOVA vs JSON Lines: typed records, one per line',
 		description:
-			'NOVA reads JSON Lines today. NOVA Lines (.novl), a proposed line-oriented stream, keeps one record per line, adds NOVA types, can name the columns once, and ends with a record count so a reader can tell a finished stream from one that stopped.',
-		lead: 'JSON Lines repeats every key on every line, and a reader cannot tell a finished stream from one that stopped early. NOVA reads JSON Lines today. NOVA Lines, a proposed stream format, keeps one record per line, can name the columns once, and ends with a record count.'
+			'NOVA reads JSON Lines today. NOVA Lines (.novl), a proposed line-oriented stream, keeps one record per line and the shape of JSON Lines, adds NOVA types, and can end with a record count so a reader can tell a finished stream from one that stopped. Flat rows can name their columns once.',
+		lead: 'JSON Lines has only JSON’s types, and a reader cannot tell a finished stream from one that stopped early. NOVA reads JSON Lines today. NOVA Lines, a proposed stream format, keeps one record per line and the same keys, adds real types, and can end with a record count. Flat rows can also name their columns once.'
 	},
 	variant: 'problem-fix',
 	stacked: true,
 	before: {
-		filename: 'services.jsonl',
+		filename: 'events.jsonl',
 		meta: 'did the writer finish?',
 		lang: 'jsonl',
-		code: servicesJsonl,
-		notes: ['keys again', 'keys again']
+		code: eventsJsonl
 	},
 	after: {
-		filename: 'services.novl',
+		filename: 'events.novl',
 		meta: 'proposed, not in the spec yet',
 		lang: 'nova',
-		code: servicesNovl,
-		notes: ['columns once', 'one row per line', 'append as you go', 'writer finished: 2 rows']
+		code: eventsNovl
 	},
 	afterNote: {
-		text: 'Proposed: rows are appended one line at a time, and the optional `@end` trailer says the writer finished. A stream without it reads as open, not as complete, so `tail -f` still works.',
+		text: 'Proposed: the same shape and the same repeated keys as JSON Lines, but with real types: `ts` is a timestamp, `level` a variant. Records are appended one line at a time, and the optional `@end` trailer says the writer finished. A stream without it reads as open, not as complete, so `tail -f` still works.',
 		section: 'C',
 		label: 'Open questions, spec App. C'
 	},
@@ -46,7 +44,7 @@ export const comparison: Comparison = {
 		{
 			topic: 'Field names',
 			theirs: 'Repeated on every line',
-			nova: 'Proposed: once, in an `@columns` header',
+			nova: 'Repeated too; proposed: flat rows name them once in an `@columns` header',
 			section: 'C'
 		},
 		{
@@ -64,27 +62,27 @@ export const comparison: Comparison = {
 		{
 			topic: 'Absent fields',
 			theirs: 'Leave the key out',
-			nova: 'Leave the cell empty; write `null` for a present null',
+			nova: 'Leave the key out, or the cell empty in a table; `null` is a present null',
 			section: '4.9'
 		},
 		{
 			topic: 'Querying',
 			theirs: '`jq` per line',
-			nova: '`nvf get` reads JSON Lines as a list and answers with a table',
+			nova: '`nvf get` reads JSON Lines as one list and answers in the compact profile',
 			section: '7.3'
 		}
 	],
 	migrate: {
 		intro:
-			'Today NOVA reads JSON Lines as one list. For a finished file, the compact profile writes a list of records with scalar fields as a table, with the row count filled in, so a cut-off copy fails to parse. Writing `.novl` is part of the proposal; `nvf` does not do it yet.',
+			'Today NOVA reads JSON Lines as one list. For a finished file of flat records, the compact profile writes a table with the row count filled in, so a cut-off copy fails to parse; nested records stay records. Writing `.novl` is part of the proposal; `nvf` does not do it yet. For flat rows it adds `@columns`, which names the top-level keys once.',
 		steps: [
 			{ lang: 'shellscript', code: migrateSh },
 			{ filename: 'stdout', lang: 'nova', code: compactNova },
 			{ filename: 'A cut-off table', lang: 'text', code: truncated },
 			{
-				filename: 'Proposed: records that are not uniform, one value per line',
+				filename: 'Proposed: flat rows in .novl, columns named once',
 				lang: 'nova',
-				code: eventsNovl
+				code: servicesNovl
 			}
 		]
 	},
@@ -108,7 +106,7 @@ export const comparison: Comparison = {
 		{
 			question: 'Can a record hold nested values?',
 			answer:
-				'Yes. Without `@columns`, each line is one flow value, such as `{id: api, tags: [a, b], limits: {cpu: 2}}`. A table cell is a flow value too, but today the compact writer only chooses a table when every field is a scalar.'
+				'Yes. For nested events such as logs, value mode is the format: each line is one flow value, as in the example above. `@columns` is an optimisation for flat rows and saves only the top-level keys; nested keys repeat on every line in both modes. Today the compact writer only chooses a table when every field is a scalar.'
 		},
 		{
 			question: 'Are commas inside values a problem?',
