@@ -90,7 +90,7 @@ export const comparison: Comparison = {
 			{ filename: 'Before you release a new version', lang: 'shellscript', code: checkSh }
 		],
 		note: {
-			text: 'Features Protobuf cannot express, such as tuples, `any` or lists of lists, are rejected with an error naming the definition and field.',
+			text: 'Features Protobuf cannot express, such as tuples, `any`, unions or lists of lists, are rejected with an error naming the definition and field.',
 			section: '11.2',
 			label: 'Protobuf mapping, spec §11.2'
 		}

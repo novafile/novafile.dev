@@ -75,6 +75,12 @@ export const comparison: Comparison = {
 			section: '2.11'
 		},
 		{
+			topic: 'Unions',
+			theirs: '`anyOf` or `oneOf`; validation only, in no fixed order',
+			nova: '`string | string[]`: the first member that resolves wins, and reordering is a breaking change',
+			section: '6.3'
+		},
+		{
 			topic: 'Versions',
 			theirs: 'A `$id` by convention',
 			nova: 'SemVer, checked against the schema diff',
