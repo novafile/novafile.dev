@@ -47,7 +47,7 @@ export const comparison: Comparison = {
 		{
 			topic: 'Schema language',
 			theirs: 'JSON Schema, written in JSON or YAML',
-			nova: 'A small `.novs` language with records, enums and aliases',
+			nova: 'A small `.novs` language with records, enums, unions and aliases',
 			section: '6.1'
 		},
 		{
